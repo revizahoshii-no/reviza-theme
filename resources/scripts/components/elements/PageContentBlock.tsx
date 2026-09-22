@@ -25,16 +25,8 @@ const PageContentBlock: React.FC<PageContentBlockProps> = ({ title, showFlashKey
                     {children}
                 </ContentContainer>
                 <ContentContainer css={tw`mb-4`}>
-                    <p css={tw`text-center text-neutral-500 text-xs`}>
-                        <a
-                            rel={'noopener nofollow noreferrer'}
-                            href={'https://nookure.com'}
-                            target={'_blank'}
-                            css={tw`no-underline text-neutral-500 hover:text-neutral-300`}
-                        >
-                            Nookure&reg;
-                        </a>
-                        &nbsp;&copy; 2022 - {new Date().getFullYear()}
+                    <p className={'rv-watermark'}>
+                        POWERED BY REVIZA D KINK | {new Date().getFullYear()} ALRIGHT RESERVED
                     </p>
                 </ContentContainer>
             </>

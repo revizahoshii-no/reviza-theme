@@ -13,6 +13,8 @@ import { setupInterceptors } from '@/api/interceptors';
 import AuthenticatedRoute from '@/components/elements/AuthenticatedRoute';
 import { ServerContext } from '@/state/server';
 import '@/assets/tailwind.css';
+import '@/assets/reviza.css';
+import RevizaBackground from '@/components/reviza/RevizaBackground';
 import Spinner from '@/components/elements/Spinner';
 import { NookThemeProvider } from '@/theme';
 
@@ -60,6 +62,7 @@ const App = () => {
     return (
         <>
             <GlobalStylesheet />
+            <RevizaBackground />
             <StoreProvider store={store}>
                 <NookThemeProvider>
                     <ProgressBar />

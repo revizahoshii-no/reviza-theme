@@ -8,6 +8,7 @@ import { useLocation } from 'react-router';
 import Spinner from '@/components/elements/Spinner';
 import routes from '@/routers/routes';
 import Sidebar from '@/components/Sidebar';
+import RevizaBanner from '@/components/reviza/RevizaBanner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 
@@ -32,6 +33,9 @@ export default () => {
                 </Sidebar>
             )}
 
+            <div css={{ maxWidth: '1200px', margin: '0 auto', padding: '18px 16px 0' }}>
+                <RevizaBanner />
+            </div>
             <TransitionRouter>
                 <React.Suspense fallback={<Spinner centered />}>
                     <Switch location={location}>

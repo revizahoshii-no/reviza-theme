@@ -1,173 +1,100 @@
-# Nook Theme
-NookTheme is a free and open source [Pterodactyl theme](https://pterodactyl.io) designed to be simple, clean, and modern.
+# Reviza Theme
 
-![Image](https://i.imgur.com/AFjHGBr.png)
+Tema panel **Pterodactyl** bergaya Reviza — latar video, banner beranimasi,
+antarmuka kaca ungu, dan bahasa Indonesia.
 
-<details>
-<summary>View Screenshots</summary>
+Fork dari [NookTheme](https://github.com/Nookure/NookTheme), yang merupakan fork
+dari [Pterodactyl Panel](https://github.com/pterodactyl/panel).
 
-![Image](https://i.imgur.com/CNxF3iT.png)
-![Image](https://i.imgur.com/IflRtEX.png)
-![Image](https://i.imgur.com/vNLK5jP.png)
-![Image](https://i.imgur.com/dnxV2CS.png)
-</details>
+---
 
-## Installation
+## Isi tema
 
-This will update your panel to the latest version of NookTheme panel is based. <br>
-You can see the version in the current branch name.
+| Fitur | Keterangan |
+|---|---|
+| Latar video | Video Reviza, `position: fixed`, terkunci saat viewport mobile berubah |
+| Halaman masuk | Gaya kartu aplikasi mobile, foto profil menggantikan maskot Pterodactyl |
+| Banner header | Foto profil, sambutan animasi ketik-hapus, jam berjalan, peringatan penggunaan |
+| Bahasa Indonesia | Tersedia di pemilih bahasa panel (`id`) |
+| Kontak | Tautan sosial Reviza berbentuk SVG di dalam drawer |
+| Tombol | Gradien ungu dengan efek angkat saat disentuh |
+| Transparansi | Panel dibuat semi-transparan agar latar tetap terlihat; teks, konsol, dan kolom isian tetap pekat |
+| Admin | Tema ikut diterapkan ke seluruh halaman administrasi |
+| Konsol | Prompt terminal `reviza@docker~` |
+| Watermark | `POWERED BY REVIZA D KINK | 2026 ALRIGHT RESERVED` |
 
-<details>
-<summary>Upgrade PHP</summary>
+Seluruh aset (video dan foto) disimpan langsung di `public/assets/reviza/`,
+tidak mengambil dari CDN luar.
 
-Before proceeding with the installation steps, ensure that your PHP version is upgraded to 8.2 or newer. Follow the instructions below to upgrade PHP:
+## Berkas yang diubah
 
-1. Update your package list:
-```bash
-sudo apt update
+```
+public/assets/reviza/          video latar, foto profil, admin.css, admin.js
+resources/scripts/assets/reviza.css
+resources/scripts/components/reviza/   RevizaBackground, RevizaBanner,
+                                       RevizaContacts, LiveClock, TypewriterText
+resources/scripts/components/App.tsx
+resources/scripts/components/Sidebar.tsx
+resources/scripts/components/auth/LoginFormContainer.tsx
+resources/scripts/components/elements/PageContentBlock.tsx
+resources/scripts/config.ts
+resources/scripts/routers/DashboardRouter.tsx
+resources/scripts/routers/ServerRouter.tsx
+resources/views/layouts/admin.blade.php
+resources/views/admin/index.blade.php
+resources/lang/id/
 ```
 
-2. Install the required dependencies:
-```bash
-sudo apt install -y software-properties-common
-```
+## Pemasangan
 
-3. Add the PHP repository:
-```bash
-sudo add-apt-repository ppa:ondrej/php
-```
-
-4. Update your package list again:
-```bash
-sudo apt update
-```
-
-5. Install PHP 8.3:
-```bash
-sudo apt install -y php8.3
-```
-
-6. Verify the PHP version:
-```bash
-php -v
-```
-
-</details>
-
-### Enter Maintenance Mode
-
-Whenever you are performing an update you should be sure to place your Panel into maintenance mode. This will prevent
-users from encountering unexpected errors and ensure everything can be updated before users encounter
-potentially new features.
+Panduan lengkap ada di berkas panduan terpisah. Ringkasnya:
 
 ```bash
 cd /var/www/pterodactyl
-
 php artisan down
-```
 
-### Download the theme
-
-The first step in the update process is to download the new panel files from GitHub. The command below will download
-the release archive for the most recent version of Pterodactyl, save it in the current directory and will automatically
-unpack the archive into your current folder.
-
-```bash
-curl -L https://github.com/Nookure/NookTheme/releases/latest/download/panel.tar.gz | tar -xzv
-```
-
-Once all of the files are downloaded we need to set the correct permissions on the cache and storage directories to avoid
-any webserver related errors.
-
-```bash
+curl -L https://github.com/revizahoshii-no/reviza-theme/releases/latest/download/panel.tar.gz | tar -xzv
 chmod -R 755 storage/* bootstrap/cache
-```
-
-### Update Dependencies
-
-After you've downloaded all of the new files you will need to upgrade the core components of the panel. To do this,
-simply run the commands below and follow any prompts.
-
-```bash
 composer install --no-dev --optimize-autoloader
-```
-
-### Clear Compiled Template Cache
-
-You'll also want to clear the compiled template cache to ensure that new and modified templates show up correctly for
-users.
-
-```bash
-php artisan view:clear
-php artisan config:clear
-```
-
-### Database Updates
-
-You'll also need to update your database schema for the newest version of Pterodactyl. Running the command below
-will update the schema and ensure the default eggs we ship are up to date (and add any new ones we might have). Just
-remember, _never edit core eggs we ship_! They will be overwritten by this update process.
-
-```bash
 php artisan migrate --seed --force
-```
-
-### Set Permissions
-
-The last step is to set the proper owner of the files to be the user that runs your webserver. In most cases this
-is `www-data` but can vary from system to system &mdash; sometimes being `nginx`, `caddy`, `apache`, or even `nobody`.
-
-```bash
-# If using NGINX or Apache (not on CentOS):
+php artisan view:clear && php artisan config:clear
 chown -R www-data:www-data /var/www/pterodactyl/*
-
-# If using NGINX on CentOS:
-chown -R nginx:nginx /var/www/pterodactyl/*
-
-# If using Apache on CentOS
-chown -R apache:apache /var/www/pterodactyl/*
-```
-
-### Restarting Queue Workers
-
-After _every_ update you should restart the queue worker to ensure that the new code is loaded in and used.
-
-```bash
 php artisan queue:restart
-```
-
-### Exit Maintenance Mode
-
-Now that everything has been updated you need to exit maintenance mode so that the Panel can resume accepting
-connections.
-
-```bash
 php artisan up
 ```
 
-## Documentation
+Bila membangun dari source setelah mengubah tampilan:
 
-* [Panel Documentation](https://pterodactyl.io/panel/1.0/getting_started.html)
-* [Wings Documentation](https://pterodactyl.io/wings/1.0/installing.html)
-* [Community Guides](https://pterodactyl.io/community/about.html)
-* Or, get additional help [via Discord](https://discord.nookure.com/)
+```bash
+yarn install
+yarn build:production
+php artisan view:clear
+```
 
-## Star History
+Syarat: PHP 8.2 atau 8.3, Node.js 18+.
 
-<a href="https://star-history.com/#Nookure/NookTheme&Timeline">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Nookure/NookTheme&type=Timeline&theme=dark" />
-    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Nookure/NookTheme&type=Timeline" />
-    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Nookure/NookTheme&type=Timeline" />
-  </picture>
-</a>
+## Mengaktifkan bahasa Indonesia
 
-## License
+Panel Admin → **Settings** → **General** → **Default Language** → `Bahasa Indonesia`.
+Tiap pengguna juga bisa memilih sendiri di halaman akun.
 
-Pterodactyl® Copyright © 2015 - 2023 Dane Everitt and contributors.
+---
 
-> Nookure is not affiliated with Pterodactyl® Panel or its contributors.
+## Lisensi
 
-Pterodactyl code released under the [MIT License](./LICENSE.md).
+- **Pterodactyl®** — MIT, © 2015–2026 Dane Everitt dan kontributor
+- **NookTheme** — GNU GPLv3, oleh Nookure
+- **Reviza Theme** — GNU GPLv3, mengikuti lisensi induknya
 
-NookTheme code  edits released under the [GNU GPLv3 License](./NookLicense.md).
+## Kredit
+
+Tema ini tidak dibangun dari nol. Terima kasih kepada:
+
+- **[Pterodactyl Panel](https://github.com/pterodactyl/panel)** oleh Dane Everitt
+  dan kontributor — panel dasarnya.
+- **[NookTheme](https://github.com/Nookure/NookTheme)** oleh
+  **[Nookure](https://nookure.com/)** — tema yang menjadi dasar fork ini.
+
+Nookure dan Pterodactyl tidak berafiliasi dengan fork ini.
+
+Dikembangkan oleh **Reviza D Kink** — [revizayowa.biz.id](https://revizayowa.biz.id/)

@@ -1,0 +1,346 @@
+/* ============================================================
+   TEMA REVIZA
+   Video latar, banner, kontak, dan penyesuaian transparansi
+   agar latar tetap terlihat di seluruh halaman panel.
+   ============================================================ */
+
+:root {
+    --rv-ungu: #8b5cf6;
+    --rv-ungu-terang: #a78bfa;
+    --rv-ungu-gelap: #6d28d9;
+    --rv-panel: rgba(17, 12, 28, 0.72);
+    --rv-panel-pekat: rgba(17, 12, 28, 0.9);
+    --rv-garis: rgba(167, 139, 250, 0.22);
+    --rv-vh: 100dvh;
+}
+
+/* ---------- latar video ---------- */
+
+.rv-bg-wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: var(--rv-vh, 100dvh);
+    min-height: var(--rv-vh, 100vh);
+    z-index: 0;
+    overflow: hidden;
+    background: #050505;
+    pointer-events: none;
+    contain: strict;
+}
+
+.rv-bg-wrap video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.rv-bg-veil {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(5, 5, 5, 0.55) 0%, rgba(20, 8, 40, 0.62) 100%);
+}
+
+#app,
+#modal-portal {
+    position: relative;
+    z-index: 1;
+}
+
+html,
+body {
+    background: transparent !important;
+}
+
+/* ---------- banner header ---------- */
+
+.rv-banner {
+    background: var(--rv-panel);
+    backdrop-filter: blur(14px);
+    border: 1px solid var(--rv-garis);
+    border-radius: 14px;
+    padding: 16px 18px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 34px rgba(0, 0, 0, 0.42);
+}
+
+.rv-banner-main {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.rv-banner-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex: none;
+    border: 2px solid var(--rv-ungu);
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.55);
+}
+
+.rv-banner-body {
+    min-width: 0;
+    flex: 1;
+}
+
+.rv-banner-title {
+    margin: 0;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #f3f0ff;
+    text-shadow: 0 0 16px rgba(139, 92, 246, 0.5);
+    min-height: 1.4em;
+}
+
+.rv-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 3px;
+    vertical-align: text-bottom;
+    background: var(--rv-ungu-terang);
+    animation: rv-kedip 1s steps(2, start) infinite;
+}
+
+@keyframes rv-kedip {
+    to {
+        visibility: hidden;
+    }
+}
+
+.rv-clock {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 6px;
+    flex-wrap: wrap;
+}
+
+.rv-clock-time {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 1.28rem;
+    font-weight: 600;
+    color: var(--rv-ungu-terang);
+    text-shadow: 0 0 14px rgba(167, 139, 250, 0.6);
+}
+
+.rv-clock-date {
+    font-size: 0.8rem;
+    color: rgba(226, 222, 244, 0.78);
+}
+
+.rv-banner-warn {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin-top: 13px;
+    padding: 9px 12px;
+    border-radius: 9px;
+    background: rgba(220, 38, 38, 0.15);
+    border: 1px solid rgba(248, 113, 113, 0.42);
+    color: #fecaca;
+    font-size: 0.71rem;
+    font-weight: 700;
+    letter-spacing: 0.035em;
+    line-height: 1.5;
+}
+
+.rv-banner-warn svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+    margin-top: 1px;
+    color: #f87171;
+}
+
+@media (max-width: 640px) {
+    .rv-banner-main {
+        gap: 12px;
+    }
+    .rv-banner-avatar {
+        width: 50px;
+        height: 50px;
+    }
+    .rv-banner-title {
+        font-size: 0.83rem;
+    }
+    .rv-clock-time {
+        font-size: 1.05rem;
+    }
+    .rv-banner-warn {
+        font-size: 0.64rem;
+    }
+}
+
+/* ---------- kontak di drawer ---------- */
+
+.rv-contacts {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--rv-garis);
+}
+
+.rv-contacts-label {
+    display: block;
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(196, 181, 253, 0.75);
+    margin-bottom: 10px;
+}
+
+.rv-contacts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+    gap: 7px;
+}
+
+.rv-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    padding: 9px 5px;
+    border-radius: 9px;
+    background: rgba(139, 92, 246, 0.09);
+    border: 1px solid var(--rv-garis);
+    color: #ddd6fe;
+    font-size: 0.63rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.rv-contact:hover {
+    background: rgba(139, 92, 246, 0.2);
+    border-color: var(--rv-ungu);
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.rv-contact-icon {
+    width: 19px;
+    height: 19px;
+}
+
+/* ---------- transparansi: latar wajib terlihat ---------- */
+
+div[class*='bg-neutral-700'],
+div[class*='bg-neutral-800'],
+div[class*='bg-neutral-900'],
+section[class*='bg-neutral'],
+.rv-glass {
+    background-color: var(--rv-panel) !important;
+    backdrop-filter: blur(12px);
+}
+
+/* elemen yang harus tetap pekat demi keterbacaan */
+pre,
+code,
+.terminal,
+.xterm,
+.xterm-viewport,
+.xterm-screen,
+textarea,
+input,
+select,
+.CodeMirror,
+.cm-editor {
+    background-color: var(--rv-panel-pekat) !important;
+    backdrop-filter: none !important;
+}
+
+/* ---------- tombol ---------- */
+
+.rv-btn,
+button[class*='bg-primary'],
+a[class*='bg-primary'] {
+    background-image: linear-gradient(135deg, var(--rv-ungu) 0%, var(--rv-ungu-gelap) 100%) !important;
+    border: 1px solid rgba(167, 139, 250, 0.5) !important;
+    box-shadow: 0 4px 16px rgba(109, 40, 217, 0.4);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.rv-btn:hover,
+button[class*='bg-primary']:hover,
+a[class*='bg-primary']:hover {
+    filter: brightness(1.12);
+    box-shadow: 0 6px 22px rgba(139, 92, 246, 0.58);
+    transform: translateY(-1px);
+}
+
+.rv-btn:active,
+button[class*='bg-primary']:active {
+    transform: translateY(0);
+}
+
+/* ---------- watermark ---------- */
+
+.rv-watermark {
+    text-align: center;
+    font-size: 0.66rem;
+    letter-spacing: 0.1em;
+    color: rgba(196, 181, 253, 0.62);
+    padding: 16px 0 10px;
+}
+
+/* ---------- halaman login bergaya aplikasi ---------- */
+
+.rv-login-card {
+    background: var(--rv-panel-pekat);
+    backdrop-filter: blur(18px);
+    border: 1px solid var(--rv-garis);
+    border-radius: 20px;
+    box-shadow: 0 22px 60px rgba(0, 0, 0, 0.6);
+    padding: 26px 22px 22px;
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.rv-login-avatar {
+    width: 92px;
+    height: 92px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 12px;
+    border: 3px solid var(--rv-ungu);
+    box-shadow: 0 0 30px rgba(139, 92, 246, 0.65);
+}
+
+.rv-login-name {
+    text-align: center;
+    font-size: 1.16rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #f5f3ff;
+    margin: 0;
+}
+
+.rv-login-sub {
+    text-align: center;
+    font-size: 0.71rem;
+    color: rgba(196, 181, 253, 0.78);
+    margin: 3px 0 20px;
+    letter-spacing: 0.06em;
+}
+
+@media (max-width: 640px) {
+    .rv-login-card {
+        border-radius: 18px;
+        padding: 22px 18px 18px;
+    }
+    .rv-login-avatar {
+        width: 76px;
+        height: 76px;
+    }
+}

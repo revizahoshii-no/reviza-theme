@@ -21,6 +21,7 @@ import PermissionRoute from '@/components/elements/PermissionRoute';
 import routes from '@/routers/routes';
 import Sidebar from '@/components/Sidebar';
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import RevizaBanner from '@/components/reviza/RevizaBanner';
 
 export default () => {
     const match = useRouteMatch<{ id: string }>();
@@ -115,6 +116,9 @@ export default () => {
                         <ConflictStateRenderer />
                     ) : (
                         <ErrorBoundary>
+                            <div css={{ maxWidth: '1200px', margin: '0 auto', padding: '18px 16px 0' }}>
+                                <RevizaBanner />
+                            </div>
                             <TransitionRouter>
                                 <Switch location={location}>
                                     {routes.server.map(({ path, permission, component: Component }) => (

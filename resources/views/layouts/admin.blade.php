@@ -16,6 +16,7 @@
         <meta name="msapplication-config" content="/favicons/browserconfig.xml">
         <meta name="theme-color" content="#0e4688">
 
+        <link rel="stylesheet" href="/assets/reviza/admin.css">
         @include('layouts.scripts')
 
         @section('scripts')
@@ -159,7 +160,7 @@
                     <strong><i class="fa fa-fw {{ $appIsGit ? 'fa-git-square' : 'fa-code-fork' }}"></i></strong> {{ $appVersion }}<br />
                     <strong><i class="fa fa-fw fa-clock-o"></i></strong> {{ round(microtime(true) - LARAVEL_START, 3) }}s
                 </div>
-                Copyright &copy; 2022 - {{ date('Y') }} <a href="https://nookure.com/">Nookure</a>.
+                POWERED BY REVIZA D KINK | {{ date('Y') }} ALRIGHT RESERVED
             </footer>
         </div>
         @section('footer-scripts')
@@ -210,5 +211,6 @@
                 })
             </script>
         @show
+        <script src="/assets/reviza/admin.js"></script>
     </body>
 </html>
