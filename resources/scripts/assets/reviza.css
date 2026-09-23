@@ -16,10 +16,16 @@
 
 /* ---------- latar video ---------- */
 
+/* Video sumber berformat potret 576x1024 (9:16).
+   Posisi dikunci dengan position: fixed sehingga tidak ikut bergulir.
+   Di layar mobile video ditampilkan utuh tanpa terpotong (object-fit: contain),
+   sedangkan di layar lebar dipakai cover agar tidak ada ruang kosong. */
 .rv-bg-wrap {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 100vw;
     height: var(--rv-vh, 100dvh);
     min-height: var(--rv-vh, 100vh);
@@ -28,15 +34,27 @@
     background: #050505;
     pointer-events: none;
     contain: strict;
+    will-change: auto;
+    transform: none;
 }
 
 .rv-bg-wrap video {
     position: absolute;
-    inset: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center;
+    object-fit: contain;
+    object-position: center center;
+}
+
+/* Layar lebar: penuhi bingkai, potongan atas-bawah tidak mengganggu
+   karena bagian penting video berada di tengah. */
+@media (min-aspect-ratio: 9/16) {
+    .rv-bg-wrap video {
+        object-fit: cover;
+    }
 }
 
 .rv-bg-veil {
@@ -54,6 +72,11 @@
 html,
 body {
     background: transparent !important;
+}
+
+/* Cegah latar ikut bergeser saat halaman digulir di iOS/Safari. */
+body {
+    background-attachment: fixed;
 }
 
 /* ---------- banner header ---------- */
